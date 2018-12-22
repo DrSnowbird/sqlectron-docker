@@ -67,6 +67,10 @@ RUN sudo wget -c ${PRODUCT_DOWNLOAD_URL}/${PRODUCT_TAR} && \
 # ... add Product plugin if any 
 RUN sudo apt-get install -y libgtk2.0 libgconf-2-4 libnss3
 
+RUN sudo apt install -y libcanberra-gtk-module
+
+RUN sudo rm -f /usr/lib/i386-linux-gnu/mesa/libGL.so.1
+
 ##################################
 #### Set up user environments ####
 ##################################
@@ -75,7 +79,7 @@ VOLUME ${HOME}/.${PRODUCT_NAME}-${PRODUCT_VERSION}
 
 RUN mkdir -p ${PRODUCT_WORKSPACE} ${HOME}/.${PRODUCT_NAME}-${PRODUCT_VERSION} && \
     sudo chown -R ${USER_NAME}:${USER_NAME} ${PRODUCT_WORKSPACE}
-    
+
 USER ${USER_NAME}
 WORKDIR ${HOME}
 
